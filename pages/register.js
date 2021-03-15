@@ -15,7 +15,7 @@ export default function Home() {
         e.preventDefault()
         console.log(`${firstName} ${lastName} ${password} ${email} ${address}`)
 
-        fetch(`http://localhost:3000/register`, {
+        fetch(`http://localhost:4000/register`, {
             method: 'POST',
             headers:{
                 'content-type': 'Application/json'
