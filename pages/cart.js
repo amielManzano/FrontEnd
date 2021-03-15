@@ -2,13 +2,42 @@ import React, {useState, useEffect} from 'react'
 import Head from 'next/head'
 import styles from '../styles/Home.module.css'
 import {Card, Button} from 'react-bootstrap'
-import { useRouter } from 'next/router'
+import { Router, useRouter } from 'next/router'
 
 
 export default function cart() {
 
     const [productName, setProductName] = useState("")
+    const [checkoutList, setCheckoutList]= useState("")
     const router = useRouter()
+
+    async function checkoutBtn(e){
+        // let checkoutUrl = await fetch('http://localhost:4000/user-details',{
+        //     method: 'POST',
+        //     headers: { 'Content-type': 'Application/JSON'},
+        //     body: JSON.stringify({
+        //         userId: localStorage.getItem('userId')
+        //     })
+        // })
+        // // console.log(checkoutUrl)
+        // const data = await checkoutUrl.json()
+        // let checkoutProduct =  data.cart.map(items=>{
+        //     return(
+        //     <li>
+        //         {items.product_title}
+        //     </li>
+        //     )
+            
+
+        
+        // })
+        // setCheckoutList(checkoutProduct) 
+      router.push('/checkout')
+        
+
+
+        
+    }   
 
     useEffect(async() => {
 
@@ -55,7 +84,9 @@ export default function cart() {
         setProductName(cartProduct)
    
                
+        // Checkout Product
 
+       
 
     },[])
 
@@ -64,7 +95,10 @@ export default function cart() {
       <>
        
             {productName}
-          
+            <button type="submit" onClick={e=>checkoutBtn(e)}>Proceed to Checkout</button>
+          <ul>
+              {checkoutList}
+          </ul>
     </>
   )
 }

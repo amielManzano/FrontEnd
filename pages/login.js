@@ -55,7 +55,7 @@ const LoginForm = () => {
        localStorage.setItem('userId', qwer._id)
        localStorage.setItem('isAdmin', qwer.isAdmin)
 
-
+		// windows.replace.location('/catalog')
 		
 
 
@@ -77,6 +77,8 @@ const LoginForm = () => {
 
 		  localStorage.setItem('userId',googleUser._id)
 		  localStorage.setItem('isAdmin',googleUser.isAdmin)
+
+		  Router.push('/cart')
 
     };
 
