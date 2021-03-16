@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { Navbar, Nav } from 'react-bootstrap'
 
 
+
 export default function navHome() {
   const [user, setUser] = useState("")
 
@@ -20,6 +21,8 @@ export default function navHome() {
                 <Nav.Link href="../catalog">Catalog</Nav.Link>
                 <Nav.Link href="../cart">Cart</Nav.Link>
                 <Nav.Link href="../logout">Logout</Nav.Link>
+                <Nav.Link href ="../sample">Sample</Nav.Link>
+                <Nav.Link href ="../librengpage">Libre</Nav.Link>
             </>
           
 
