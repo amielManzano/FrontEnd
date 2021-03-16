@@ -1,14 +1,14 @@
-// import { useContext, useEffect } from 'react';
-// import Router from 'next/router';
-// import UserContext from '../../UserContext';
+import {useEffect } from 'react';
+import Router from 'next/router';
 
-// export default function index(){
-// 	const { unsetUser, setUser } = useContext(UserContext);
+export default function index(){
+    function unsetUser(){
+        localStorage.clear()
+    }
+	useEffect(() => {
+		unsetUser();
+		Router.push('/register');
+	}, [])
 
-// 	useEffect(() => {
-// 		unsetUser();
-// 		Router.push('/');
-// 	}, [])
-
-// 	return null;
-// }
+	return null;
+}

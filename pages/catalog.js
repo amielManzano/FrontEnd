@@ -26,7 +26,7 @@ export default function Home() {
             .then(data => {
                 console.log(data);
                 let allCategories = data.map(index => {
-                   if(index.alie_parent_id){
+                   if(index.alie_category_id){
                         return(
                             <option key={index.api_category_id}>{index.category_name}</option>
                         )
@@ -51,6 +51,7 @@ export default function Home() {
             .then(response => response.json())
             .then(data => {
                 data.forEach(i => {
+
                     if(i.category_name == selectedCategory) {
                             let urlAll = `https://magic-aliexpress1.p.rapidapi.com/api/category/${i.alie_category_id}/products?shipFromCountry=&shipToCountry=&sort=&maxSalePrice=&minSalePrice=&keywords=`
                             let keyAll = '5ca54c03b3msh8baf688928daeb6p1ca073jsn2c184cd3f98c'
@@ -65,12 +66,13 @@ export default function Home() {
                                 .then(response => response.json())
                                 .then(data => {
                                     console.log(data)
+                                    if(data.hasOwnProperty('docs')){
                                     let allProducts = data.docs.map(i => {
                                         
                                         //view details function
                                         function viewDetails(e){
                                             e.preventDefault()
-  
+                                            
                                             let urlSpecific = `https://magic-aliexpress1.p.rapidapi.com/api/product/${i.product_id}`
                                             fetch(urlSpecific, {
                                                 "method": "GET",
@@ -99,15 +101,17 @@ export default function Home() {
                                                     'Content-type': 'application/json'
                                                 },
                                                 body: JSON.stringify({
-                                                    userId: '604eb85417599b2298787dac',
-                                                    productId: i.product_id
+                                                    userId: localStorage.getItem('userId'),
+                                                    productId: i.product_id,
+                                                    product_title: i.product_title,
+                                                    product_main_image_url: i.product_main_image_url,
+                                                    app_sale_price: i.app_sale_price
                                                 })
                                                 })
                                                 .then(response => response.json())
                                                 .then(data => { 
                                                     console.log(data)
                                                 })
-
                                         }
 
                                         return(
@@ -139,7 +143,10 @@ export default function Home() {
                                         )
                                     })
                                     setProducts(allProducts)
+                                }
+                                    
                                 })
+                                
                         }
                     
                 })

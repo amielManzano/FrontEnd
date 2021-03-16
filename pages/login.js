@@ -38,7 +38,7 @@ const LoginForm = () => {
 		console.log(email);
         console.log(password);
 
-        let loginUrl=await fetch(`http://localhost:3000/login`,{
+        let loginUrl=await fetch(`http://localhost:4000/login`,{
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ 
@@ -55,39 +55,32 @@ const LoginForm = () => {
        localStorage.setItem('userId', qwer._id)
        localStorage.setItem('isAdmin', qwer.isAdmin)
 
-
+		// windows.replace.location('/catalog')
 		
 
 
 	}
 
-	const authenticateGoogleToken = (response) => {
+	const authenticateGoogleToken = async (response) => {
 	        
         console.log(response.tokenId)
 
-      
+        const options = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ tokenId: response.tokenId })
+        }
+
+          let googleLoginUrl = await fetch('http://localhost:4000/google-log-in',options)
+		 // console.log(await googleLoginUrl.json())
+		  let googleUser = await googleLoginUrl.json()
+
+		  localStorage.setItem('userId',googleUser._id)
+		  localStorage.setItem('isAdmin',googleUser.isAdmin)
+
+		  Router.push('/cart')
+
     };
-
-
-
-	// const retrieveUserDetails = (accessToken) => {
-
-	// 	const options = {
-	// 		headers: { Authorization: `Bearer ${ accessToken }` }
-	// 	}
-
-	// 	fetch(`${ AppHelper.API_URL }/users/details`, options)
-	// 	.then(AppHelper.toJSON)
-	// 	.then(data => {
-
-	// 		console.log(data)
-
-	// 		setUser({ id: data._id, isAdmin: data.isAdmin });
-	// 		Router.push('/expense-tracker');
-
-	// 	})
-
-	// }
 
 	return(
 	
@@ -125,4 +118,3 @@ const LoginForm = () => {
 		</React.Fragment>
 	)
 }
-
