@@ -1,88 +1,165 @@
-import React, {useState, useEffect} from "react";
-import { Router, useRouter } from 'next/router'
+import React, {useState, useEffect} from 'react'
 
+export default function libre(){
+    const [productsOnCart, setProductsOnCart]=useState("")
+    let arrayOfCart=[]
 
-export default function checkoutPage() {
+    // async function purchasedFunction(e){
+    //     e.preventDefault()
+    //     alert('Hi')
+    // }
+    useEffect(async function(){
+       let userDetailsUrl=await fetch('http://localhost:4000/user-details', {
+           method: 'POST',
+           headers: { 'Content-type': 'Application/JSON'},
+           body: JSON.stringify({
+               userId: localStorage.getItem('userId')
+           })
+       })
 
-    const toNumbers = arr=> arr.map(Number)
-    const [checkoutList, setCheckoutList]= useState("")
-    const[totalPurchase, setTotalPurchase] = useState(0)
-    const router = useRouter()
+       let cod=await userDetailsUrl.json()
 
-    useEffect(async() => {
-
-        
-        let userDetailsUrl =await fetch('http://localhost:4000/user-details', {
-            method: 'POST', 
-            headers: { 'Content-type': 'Application/JSON'},
-            body: JSON.stringify({
-                userId: localStorage.getItem('userId')
-            })
+       cod.cart.map(items=> {
+        arrayOfCart.push({
+            product_title: items.product_title,
+            productId: items.productId,
+            product_main_image_url: items.product_main_image_url,
+            app_sale_price: items.app_sale_price
         })
-         let data= await userDetailsUrl.json()
-         console.log(data)
-         let total=0
-        let cartProduct= data.cart.map(items =>{
-             // let fixedNumber=parseInt(items.app_sale_price)
-             let fixedNumber = toNumbers([items.app_sale_price])
-             // console.log(fixedNumber)
-              fixedNumber.map(i=>{
-                  total+=i
-                  
-              })
+       })
 
- 
-              async function deleteFromCart(){
-                 let deleteProduct = await fetch('http://localhost:4000/delete-from-cart',{
-                     method: 'POST',
-                     headers:{ 'Content-type': 'Application/JSON'},
-                     body: JSON.stringify({
-                         userId: localStorage.getItem('userId'),
-                         productId: items.productId    
-                     })
-                 })
-                 console.log(await deleteProduct.json())
-                //  Router.push('/cart')
-     
-            }
+       
 
-           // total+=items.app_sale_price
-           console.log(total)
-
+       let objectOnCart=cod.cart.map(items=> {
+        async function purchasedFunction(e){
+            e.preventDefault()
            
-             return(
-                 <>
-                 <li>{items.product_title}
-                    <ul>
-                    <li>USD {items.app_sale_price}</li>
-                    </ul>
-                 </li>
-                 
-                 </>
-             )
-         })
-        // console.log(total)
-         setCheckoutList(cartProduct)
-         setTotalPurchase(total)
-                
-         // Checkout Product
- 
-        
- 
-     },[])
- 
-        
-
-
+            let ere=await fetch('http://localhost:4000/checkout-product', {
+                method: 'POST',
+                headers: { 'Content-type': 'Application/JSON'},
+                body: JSON.stringify({
+                    userId: localStorage.getItem('userId'),
+                   productId: items.productId,
+                   product_title: items.product_title,
+                   app_sale_price: items.app_sale_price,
+                   product_main_image_url: items.product_main_image_url
+                })
+            })
      
+            console.log(await ere.json())
+            window.location.replace('/librengpage')
+         
+        }
+          return(
+            <li key={items._id}>
+                {items.product_title}
+                <button type="submit" onClick={e=>{purchasedFunction(e)}}>Proceed to Checkout</button>
+            </li>
+          )
+       })
+
+
+       setProductsOnCart(objectOnCart)
+
+    }, [])
+
+    console.log(arrayOfCart)
+    
+
+    async function pushCart(e){
+        e.preventDefault()
+        
+    }
+
     return(
         <>
-        <ul>
-            {checkoutList}
-        </ul>
-        <p>Total: {totalPurchase}</p>
-        <button type="submit">Checkout</button>
+            <h1>HELLO WORLD</h1>
+            <ul>
+                {productsOnCart}
+                {/* <button type="submit" onClick={e=>pushCart(e)}>PROCEED...</button> */}
+            </ul>
         </>
-        
     )
-}
+    import React, {useState, useEffect} from 'react'
+
+    export default function libre(){
+        const [productsOnCart, setProductsOnCart]=useState("")
+        let arrayOfCart=[]
+    
+        // async function purchasedFunction(e){
+        //     e.preventDefault()
+        //     alert('Hi')
+        // }
+        useEffect(async function(){
+           let userDetailsUrl=await fetch('http://localhost:4000/user-details', {
+               method: 'POST',
+               headers: { 'Content-type': 'Application/JSON'},
+               body: JSON.stringify({
+                   userId: localStorage.getItem('userId')
+               })
+           })
+    
+           let cod=await userDetailsUrl.json()
+    
+           cod.cart.map(items=> {
+            arrayOfCart.push({
+                product_title: items.product_title,
+                productId: items.productId,
+                product_main_image_url: items.product_main_image_url,
+                app_sale_price: items.app_sale_price
+            })
+           })
+    
+           
+    
+           let objectOnCart=cod.cart.map(items=> {
+            async function purchasedFunction(e){
+                e.preventDefault()
+               
+                let ere=await fetch('http://localhost:4000/checkout-product', {
+                    method: 'POST',
+                    headers: { 'Content-type': 'Application/JSON'},
+                    body: JSON.stringify({
+                        userId: localStorage.getItem('userId'),
+                       productId: items.productId,
+                       product_title: items.product_title,
+                       app_sale_price: items.app_sale_price,
+                       product_main_image_url: items.product_main_image_url
+                    })
+                })
+         
+                console.log(await ere.json())
+                window.location.replace('/librengpage')
+             
+            }
+              return(
+                <li key={items._id}>
+                    {items.product_title}
+                    <button type="submit" onClick={e=>{purchasedFunction(e)}}>Proceed to Checkout</button>
+                </li>
+              )
+           })
+    
+    
+           setProductsOnCart(objectOnCart)
+    
+        }, [])
+    
+        console.log(arrayOfCart)
+        
+    
+        async function pushCart(e){
+            e.preventDefault()
+            
+        }
+    
+        return(
+            <>
+                <h1>HELLO WORLD</h1>
+                <ul>
+                    {productsOnCart}
+                    {/* <button type="submit" onClick={e=>pushCart(e)}>PROCEED...</button> */}
+                </ul>
+            </>
+        )
+    }

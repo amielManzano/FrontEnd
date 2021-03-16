@@ -41,7 +41,8 @@ export default function Home() {
   return (
     <>
     <Container>
-
+    <div className='adjustLocation2 glass shadow-lg p-4'>
+    <h3 className='text-center firstFont mb-4'>Register</h3>
     <Form onSubmit={e=>registerUser(e)}>
     <div className="row">
         <div className="col">
@@ -91,6 +92,7 @@ export default function Home() {
         Submit
     </Button>
 </Form>
+</div>
 </Container>
 </>
   )

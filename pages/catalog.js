@@ -9,9 +9,14 @@ export default function Home() {
     const [selectedCategory, setSelectedCategory] = useState("")
     const [products, setProducts] = useState("")
 
+    const [search, setSearch] = useState("")
+    const [searchDisplay, setSearchDisplay] = useState("")
+    const [user, setUser] = useState("")
+
     const router = useRouter()
 
     useEffect(() => {
+        
         let urlAll = 'https://magic-aliexpress1.p.rapidapi.com/api/v2/categories'
         let keyAll = '5ca54c03b3msh8baf688928daeb6p1ca073jsn2c184cd3f98c'
         let hostAll = 'magic-aliexpress1.p.rapidapi.com'
@@ -37,6 +42,8 @@ export default function Home() {
     },[])
 
     useEffect(() => {
+        setUser(localStorage.getItem('userId'))
+        
         console.log(selectedCategory)
         let urlAll = 'https://magic-aliexpress1.p.rapidapi.com/api/v2/categories'
         let keyAll = '5ca54c03b3msh8baf688928daeb6p1ca073jsn2c184cd3f98c'
@@ -115,16 +122,13 @@ export default function Home() {
                                         }
 
                                         return(
-                                            <div className='col-4'>
-                                            <Card style={{ width: '18rem' }} className='my-3' key={i.product_title}>
+                                            <div className='col-md-4'>
+                                            <Card style={{ width: '100%' }} className='my-3' key={i.product_title}>
                                             <Card.Img variant="top" src={i.product_main_image_url} />
                                             <Card.Body>
                                                 <Card.Title>{i.product_title}</Card.Title>
                                                 <Card.Text>
                                                     Price: {i.app_sale_price_currency} {i.app_sale_price}
-                                                </Card.Text>
-                                                <Card.Text>
-                                                    ID: {i.product_id}
                                                 </Card.Text>
                                             </Card.Body>
                                             <Card.Footer>
@@ -132,10 +136,20 @@ export default function Home() {
                                                 <Form onSubmit = { e => viewDetails(e)} className="">
                                                     <Button variant="warning" type="submit" className='w-100'>Details</Button>
                                                 </Form>
-
+                                                {
+                                                (user != null) 
+                                                ? 
                                                 <Form onSubmit = { e => addToCart(e)} className="">
                                                     <Button variant="secondary" type="submit" className='w-100'>Add to cart</Button>
                                                 </Form>
+                                                :
+                                                <Form onSubmit = { e => addToCart(e)} className="">
+                                                    <Button variant="secondary" type="submit" className='w-100' disabled>Add to cart</Button>
+                                                </Form>
+                                                }
+                                                {/* <Form onSubmit = { e => addToCart(e)} className="">
+                                                    <Button variant="secondary" type="submit" className='w-100'>Add to cart</Button>
+                                                </Form> */}
                                                </>
                                             </Card.Footer>
                                             </Card>
@@ -156,22 +170,81 @@ export default function Home() {
             })
 
     },[selectedCategory])
+
+    function searchThis(e){
+        e.preventDefault()
+        fetch(`https://magic-aliexpress1.p.rapidapi.com/api/products/search?name=${search}&minSalePrice=5&shipToCountry=FR&sort=NEWEST_DESC&page=1&maxSalePrice=20&shipFromCountry=CN&fastDelivery=true`, {
+          "method": "GET",
+          "headers": {
+            "x-rapidapi-key": "5ca54c03b3msh8baf688928daeb6p1ca073jsn2c184cd3f98c",
+            "x-rapidapi-host": "magic-aliexpress1.p.rapidapi.com"
+          }
+        })
+        .then(response => response.json())
+        .then( data => {
+          console.log(data)
+          let allSearch = data.docs.map(i => {
+            function viewSpecific(e){
+              e.preventDefault()
+              localStorage.setItem('viewThis', i.product_id)
+              router.push('/product')
+            }
+            return(
+            <div className='col-md-4'>
+            <Card style={{ width: '100%' }} className='my-3' key={i.product_title}>
+              <Card.Img variant="top" src={i.product_main_image_url} />
+              <Card.Body>
+                  <Card.Title>{i.product_title}</Card.Title>
+                  <Card.Text>
+                      Price: {i.app_sale_price_currency} {i.app_sale_price}
+                  </Card.Text>
+              </Card.Body>
+              <Card.Footer>
+                  <Form onSubmit = { e => viewSpecific(e)} className="">
+                     
+                    <Button variant="warning" type="submit" className='w-100'>View</Button>
+                      
+                  </Form>
+              </Card.Footer>
+            </Card>
+            </div>
+            )
+          })
+          setSearchDisplay(allSearch)
+        })
+      }
    
   return (
     <>
         <div className='container'>
-        <h1 className='text-center mt-5'>Catalog</h1>
-        <Form.Group controlId="categoryName">
-            <Form.Label className='colorWhite'>Category name:</Form.Label>
-            <Form.Control as="select"  value={selectedCategory} 
-                    onChange={e => setSelectedCategory(e.target.value)} required>
-                        <option></option>
-                        {categoryName}
-            </Form.Control>
-        </Form.Group>
+            <div className='minHeightAdjust'>
+                <h1 className='text-center mt-5 firstFont'>Catalog</h1>
+                <Form.Group controlId="categoryName">
+                    <Form.Label className='colorWhite'>Category name:</Form.Label>
+                    <Form.Control as="select"  value={selectedCategory} 
+                            onChange={e => setSelectedCategory(e.target.value)} required>
+                                <option></option>
+                                {categoryName}
+                    </Form.Control>
+                </Form.Group>
 
-            <div className='row'>
-                {products}
+                <div className='row'>
+                    {products}
+                </div>
+            </div>
+            <div className='minHeightAdjust'>
+                <h2 className='text-center firstFont my-5'>Looking for?</h2>
+                <Form onSubmit = { e => searchThis(e)} className='mt-5'>
+                    <Form.Group controlId="search">
+                        <Form.Label className='colorWhite'>Search a product</Form.Label>
+                        <Form.Control type="text" placeholder="Type product name here" value={search} 
+                            onChange = { e => setSearch(e.target.value)} required/>
+                    </Form.Group>
+                    <Button type="submit" variant="warning" block>Search</Button>
+                </Form>
+                <div className='row'>
+                {searchDisplay}
+                </div>
             </div>
         </div>
         

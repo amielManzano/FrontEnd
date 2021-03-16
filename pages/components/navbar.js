@@ -2,26 +2,31 @@ import { useEffect, useState } from 'react'
 import { Navbar, Nav } from 'react-bootstrap'
 
 
+
 export default function navHome() {
   const [user, setUser] = useState("")
 
   const [active, setActive] = useState("")
  
 
-  useEffect(()=>{
+   useEffect(() => {
+    setUser(localStorage.getItem('userId'))
+  },[])
 
-    let refId=localStorage.getItem('userId')
-    // console.log(typeof refId)
-    console.log(refId)
-    setUser(refId)
+  useEffect(()=>{
     if(localStorage.getItem('userId') != null){
      let urlssssss= 
             <>
                 <Nav.Link href="../catalog" className='secondFont'>Catalog</Nav.Link>
                 <Nav.Link href="../cart" className='secondFont'>Cart</Nav.Link>
                 <Nav.Link href="../logout" className='secondFont'>Logout</Nav.Link>
+                <Nav.Link href ="../sample" className='secondFont'>Sample</Nav.Link>
+                <Nav.Link href ="../librengpage" className='secondFont'>Libre</Nav.Link>
             </>
+          
+
           setActive(urlssssss)
+      
     }else{
       let urlssssss=
         <>
@@ -31,11 +36,9 @@ export default function navHome() {
       
       setActive(urlssssss)
     }
-
-  
-    
-    
   },[user])
+
+ 
  return (
     <>
 

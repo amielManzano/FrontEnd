@@ -7,10 +7,12 @@ import { useRouter } from 'next/router'
 export default function Home() {
     const [product, setProduct] = useState("")
     const [allFeedback, setAllFeedback] = useState("")
+    const [user, setUser] = useState('')
 
     const router = useRouter()
 
     useEffect(() => {
+        setUser(localStorage.getItem('userId'))
         let keyAll = '5ca54c03b3msh8baf688928daeb6p1ca073jsn2c184cd3f98c'
         let hostAll = 'magic-aliexpress1.p.rapidapi.com'
         let urlSpecific = `https://magic-aliexpress1.p.rapidapi.com/api/product/${localStorage.getItem('viewThis')}`
@@ -60,13 +62,20 @@ export default function Home() {
                         <Form onSubmit = { e => feedback(e)} className=" mb-2">
                             <Button variant="primary" type="submit" className='w-100'>View Feedbacks</Button>
                         </Form>
-                        <Form onSubmit = { e => addToCart(e)} className="">
+                        {
+                            (user != null) ? <Form onSubmit = { e => addToCart(e)} className="">
                             <Button variant="warning" type="submit" className='w-100'>Add to cart</Button>
-                        </Form>
+                            </Form>
+                            :
+                            <Form onSubmit = { e => addToCart(e)} className="">
+                            <Button variant="warning" type="submit" className='w-100' disabled>Add to cart</Button>
+                            </Form>
+                        }
+                        
                     </>
                 )
             })
-    },[])
+    },[user])
 
     //feedback
     function feedback(e){

@@ -15,7 +15,6 @@ export default function index(){
 		// <View title={ 'Login' }>
 			<Row className="justify-content-center">
 				<Col xs md="6">
-					<h3>Login</h3>
 					<LoginForm />
 				</Col>
 			</Row>
@@ -89,6 +88,8 @@ const LoginForm = () => {
 				<title>Authentication</title>
 			</Head>
 			<Container>
+				<div className='adjustLocation glass p-4 shadow-lg'>
+			    <h3 className='text-center firstFont'>Login</h3>
 				<Form onSubmit={e => authenticate(e)}>
 
 					<Form.Group controlId="email">
@@ -114,6 +115,7 @@ const LoginForm = () => {
 		            <p>No Account yet?<a href="/register"> Create an account</a></p>
 
 				</Form>
+				</div>
 			</Container>
 		</React.Fragment>
 	)
