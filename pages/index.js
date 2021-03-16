@@ -7,6 +7,7 @@ import { useRouter } from 'next/router'
 export default function Home() {
   const [featured, setFeatured] = useState("")
   const [search, setSearch] = useState("")
+  const [searchDisplay, setSearchDisplay] = useState("")
   const router = useRouter()
 
   useEffect(() => {
@@ -70,8 +71,32 @@ export default function Home() {
     .then( data => {
       console.log(data)
       let allSearch = data.docs.map(i => {
-        
+        function viewSpecific(e){
+          e.preventDefault()
+          localStorage.setItem('viewThis', i.product_id)
+          router.push('/product')
+        }
+        return(
+        <Card style={{ width: '100%' }} className='my-3' key={i.product_title}>
+          <Card.Img variant="top" src={i.product_main_image_url} />
+          <Card.Body>
+              <Card.Title>{i.product_title}</Card.Title>
+              <Card.Text>
+                  Price: {i.app_sale_price_currency} {i.app_sale_price}
+              </Card.Text>
+              <Card.Text>
+                  ID: {i.product_id}
+              </Card.Text>
+          </Card.Body>
+          <Card.Footer>
+              <Form onSubmit = { e => viewSpecific(e)} className="">
+                <Button variant="warning" type="submit" className='w-100'>View</Button>
+              </Form>
+          </Card.Footer>
+        </Card>
+        )
       })
+      setSearchDisplay(allSearch)
     })
   }
 
@@ -105,6 +130,7 @@ export default function Home() {
             </Form.Group>
             <Button type="submit" variant="warning" block>Search</Button>
             </Form>
+            {searchDisplay}
         </div>
       </div>
     </div>
