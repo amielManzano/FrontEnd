@@ -15,7 +15,7 @@ export default function Home() {
         e.preventDefault()
         console.log(`${firstName} ${lastName} ${password} ${email} ${address}`)
 
-        fetch(`http://localhost:3000/register`, {
+        fetch(`https://mighty-garden-47499.herokuapp.com/register`, {
             method: 'POST',
             headers:{
                 'content-type': 'Application/json'
@@ -88,7 +88,7 @@ export default function Home() {
     </div>
 
 
-    <Button variant="primary" type="submit">
+    <Button variant="danger" type="submit" block>
         Submit
     </Button>
 </Form>

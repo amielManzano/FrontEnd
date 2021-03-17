@@ -3,6 +3,10 @@ import styles from '../styles/Home.module.css'
 import React, {useState, useEffect} from 'react'
 import { Image, Form, Button, Card } from 'react-bootstrap'
 import { useRouter } from 'next/router'
+import swal from 'sweetalert'
+
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faEye, faCartPlus, faComments, faBackward } from '@fortawesome/free-solid-svg-icons'
 
 export default function Home() {
     const [product, setProduct] = useState("")
@@ -13,7 +17,7 @@ export default function Home() {
 
     useEffect(() => {
         setUser(localStorage.getItem('userId'))
-        let keyAll = '5ca54c03b3msh8baf688928daeb6p1ca073jsn2c184cd3f98c'
+        let keyAll = 'a40fcc7907msh052dd5f49f21d8bp136989jsn53d4fbdd9901'
         let hostAll = 'magic-aliexpress1.p.rapidapi.com'
         let urlSpecific = `https://magic-aliexpress1.p.rapidapi.com/api/product/${localStorage.getItem('viewThis')}`
         fetch(urlSpecific, {
@@ -32,7 +36,7 @@ export default function Home() {
                     e.preventDefault()
                     console.log(data.product_id)
                     
-                    let urlSpecific = `http://localhost:4000/add-to-cart`
+                    let urlSpecific = `https://mighty-garden-47499.herokuapp.com/add-to-cart`
                     fetch(urlSpecific, {
                         method: "POST",
                         headers: {
@@ -49,6 +53,12 @@ export default function Home() {
                         .then(response => response.json())
                         .then(data => { 
                             console.log(data)
+                            swal({
+                                title: "Success!",
+                                text: `You added a product to cart`,
+                                icon: "success",
+                                button: "continue",
+                            });
                         })
                 }
 
@@ -58,19 +68,19 @@ export default function Home() {
                         <h1 className='text-center my-5 firstFont'>{data.product_title}</h1>
                         <Image src={data.product_main_image_url} className='w-100'></Image>
                         <p className='text-right mt-3'>Price: {data.app_sale_price_currency} {data.app_sale_price}</p>
-                        <span  className='btn btn-secondary w-100 mb-2' onClick={() => router.back()}>Back</span>
-                        <Form onSubmit = { e => feedback(e)} className=" mb-2">
-                            <Button variant="primary" type="submit" className='w-100'>View Feedbacks</Button>
-                        </Form>
+                        <span  className='btn btn-secondary w-100 mb-2' onClick={() => router.back()}>Back <FontAwesomeIcon icon={faBackward} /></span>
                         {
                             (user != null) ? <Form onSubmit = { e => addToCart(e)} className="">
-                            <Button variant="warning" type="submit" className='w-100'>Add to cart</Button>
+                            <Button variant="warning" type="submit" className='w-100'>Add to cart <FontAwesomeIcon icon={faCartPlus} /></Button>
                             </Form>
                             :
                             <Form onSubmit = { e => addToCart(e)} className="">
-                            <Button variant="warning" type="submit" className='w-100' disabled>Add to cart</Button>
+                            <Button variant="warning" type="submit" className='w-100' disabled>Add to cart <FontAwesomeIcon icon={faCartPlus} /></Button>
                             </Form>
                         }
+                        <Form onSubmit = { e => feedback(e)} className=" my-2">
+                            <Button variant="danger" type="submit" className='w-100'>View Feedbacks <FontAwesomeIcon icon={faComments} /></Button>
+                        </Form>
                         
                     </>
                 )
@@ -80,7 +90,7 @@ export default function Home() {
     //feedback
     function feedback(e){
         e.preventDefault()
-        let keyAll = '5ca54c03b3msh8baf688928daeb6p1ca073jsn2c184cd3f98c'
+        let keyAll = 'a40fcc7907msh052dd5f49f21d8bp136989jsn53d4fbdd9901'
         let hostAll = 'magic-aliexpress1.p.rapidapi.com'
         let urlFeedback = `https://magic-aliexpress1.p.rapidapi.com/api/product/${localStorage.getItem('viewThis')}/feedbacks?page=1`
             fetch(urlFeedback, {

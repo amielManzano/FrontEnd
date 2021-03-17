@@ -3,46 +3,25 @@ import Head from 'next/head'
 import styles from '../styles/Home.module.css'
 import {Card, Button, Container, Form} from 'react-bootstrap'
 import { Router, useRouter } from 'next/router'
+import swal from 'sweetalert'
 
 
 export default function cart() {
 
     const [productName, setProductName] = useState("")
     const [checkoutList, setCheckoutList]= useState("")
+    const [change, setChange] = useState(true)
+
     const router = useRouter()
 
     async function checkoutBtn(e){
-        // let checkoutUrl = await fetch('http://localhost:4000/user-details',{
-        //     method: 'POST',
-        //     headers: { 'Content-type': 'Application/JSON'},
-        //     body: JSON.stringify({
-        //         userId: localStorage.getItem('userId')
-        //     })
-        // })
-        // // console.log(checkoutUrl)
-        // const data = await checkoutUrl.json()
-        // let checkoutProduct =  data.cart.map(items=>{
-        //     return(
-        //     <li>
-        //         {items.product_title}
-        //     </li>
-        //     )
-            
-
-        
-        // })
-        // setCheckoutList(checkoutProduct) 
-      router.push('/checkout')
-        
-
-
-        
+      router.push('/checkout')        
     }   
 
     useEffect(async() => {
 
         
-       let userDetailsUrl =await fetch('http://localhost:4000/user-details', {
+       let userDetailsUrl =await fetch('https://mighty-garden-47499.herokuapp.com/user-details', {
            method: 'POST', 
            headers: { 'Content-type': 'Application/JSON'},
            body: JSON.stringify({
@@ -60,7 +39,7 @@ export default function cart() {
               }
 
              async function deleteFromCart(){
-                let deleteProduct = await fetch('http://localhost:4000/delete-from-cart',{
+                let deleteProduct = await fetch('https://mighty-garden-47499.herokuapp.com/delete-from-cart',{
                     method: 'POST',
                     headers:{ 'Content-type': 'Application/JSON'},
                     body: JSON.stringify({
@@ -69,29 +48,37 @@ export default function cart() {
                     })
                 })
                 console.log(await deleteProduct.json())
-                router.push('/cart')
+                swal({
+                    title: "Success!",
+                    text: `You deleted a product from the cart`,
+                    icon: "success",
+                });
+                setChange(!change)
+
+                
+                
     
            }
             return(
                 <div className='col-12'>
-                {/* <Card style={{ width: '18rem' }}>
-                <Card.Img variant="top" src={items.product_main_image_url}/>
-                <Card.Body>
-                    <Card.Title>{items.product_title}</Card.Title>
-                    <Card.Text>USD {items.app_sale_price}</Card.Text>
-                    <Button variant="primary" onClick ={e=>deleteFromCart()}>Delete</Button>
-                </Card.Body>
-                </Card> */}
-
                 <Card className='mb-2'>
-                    <Card.Header>{items.product_title}</Card.Header>
+                    <Card.Header className='text-left'>Price: {items.app_sale_price} USD</Card.Header>
                     <Card.Body>
                         <>
-                        <Card.Title className='text-right'>Price: {items.app_sale_price} USD</Card.Title>
-                        <Form onSubmit = { e => viewSpecific(e)} className="">
-                            <Button variant="warning" type="submit" className='w-100'>View</Button>
-                        </Form>
-                        <Button variant="secondary" onClick ={e=>deleteFromCart()} className='w-100'>Delete</Button>
+                        <div className='row'>
+                            <div className='col-1'>
+                            <img src={items.product_main_image_url} style={{height: '80px'}}></img>
+                            </div>
+                            <div className='col-9'>
+                                <Card.Title className='text-center secondFont'>{items.product_title}</Card.Title>
+                            </div>
+                            <div className='col-2'>
+                                <Form onSubmit = { e => viewSpecific(e)} className="">
+                                    <Button variant="warning" type="submit" className='w-100'>View</Button>
+                                </Form>
+                                <Button variant="danger" onClick ={e=>deleteFromCart()} className='w-100'>Delete</Button>
+                            </div>
+                        </div>
                         </>
                     </Card.Body>
                 </Card>
@@ -106,7 +93,7 @@ export default function cart() {
 
        
 
-    },[])
+    },[change])
 
 
   return (

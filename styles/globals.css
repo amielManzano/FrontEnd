@@ -1,6 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Russo+One&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Archivo:ital@1&family=Brygada+1918&family=Russo+One&display=swap');
 
+
 html,
 body {
   padding: 0;
@@ -71,5 +72,14 @@ a {
 
 .adjustLocation2{
   margin-top: 125px;
+}
+
+.makeRight{
+  margin-left: auto; 
+margin-right: 0;
+}
+
+.colorBlack{
+  color: black;
 }
 

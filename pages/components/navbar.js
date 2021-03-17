@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Navbar, Nav } from 'react-bootstrap'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faCartPlus } from '@fortawesome/free-solid-svg-icons'
 
 
 
@@ -18,10 +20,10 @@ export default function navHome() {
      let urlssssss= 
             <>
                 <Nav.Link href="../catalog" className='secondFont'>Catalog</Nav.Link>
-                <Nav.Link href="../cart" className='secondFont'>Cart</Nav.Link>
+                <Nav.Link href="../cart" className='secondFont'><FontAwesomeIcon icon={faCartPlus} /></Nav.Link>
                 <Nav.Link href="../logout" className='secondFont'>Logout</Nav.Link>
-                <Nav.Link href ="../sample" className='secondFont'>Sample</Nav.Link>
-                <Nav.Link href ="../librengpage" className='secondFont'>Libre</Nav.Link>
+                {/* <Nav.Link href ="../sample" className='secondFont'>Sample</Nav.Link>
+                <Nav.Link href ="../librengpage" className='secondFont'>Libre</Nav.Link> */}
             </>
           
 
@@ -47,7 +49,7 @@ export default function navHome() {
     <Navbar.Brand href="../" className='firstFont'>NexStore</Navbar.Brand>
     <Navbar.Toggle aria-controls="basic-navbar-nav" />
     <Navbar.Collapse id="basic-navbar-nav">
-        <Nav className="mr-auto">
+        <Nav className="makeRight">
         {
           active
         }

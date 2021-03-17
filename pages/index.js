@@ -4,6 +4,9 @@ import {Jumbotron, Container, Card, Form, Button, Carousel} from 'react-bootstra
 import React, {useState, useEffect} from 'react'
 import { useRouter } from 'next/router'
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faStore } from '@fortawesome/free-solid-svg-icons'
+
 export default function Home() {
   const [featured, setFeatured] = useState("")
   const [checkUser, setCheckUser] = useState("")
@@ -12,8 +15,9 @@ export default function Home() {
 
   useEffect(() => {
     setCheckUser(localStorage.getItem('userId'))
+
     let urlAll = 'https://magic-aliexpress1.p.rapidapi.com/api/bestSales/products?page=1&priceMax=20&priceMin=5&sort=EVALUATE_RATE_ASC&searchName=playstation'
-    let keyAll = '5ca54c03b3msh8baf688928daeb6p1ca073jsn2c184cd3f98c'
+    let keyAll = 'a40fcc7907msh052dd5f49f21d8bp136989jsn53d4fbdd9901'
     let hostAll = 'magic-aliexpress1.p.rapidapi.com'
     fetch(urlAll, {
         "method": "GET",
@@ -72,7 +76,8 @@ export default function Home() {
             
           })
           setFeatured(allfeatured)
-
+          
+          // window.location.reload(false);
         })
   },[])
 
@@ -87,7 +92,7 @@ export default function Home() {
             Online shopping app, for everyone, everywhere!
           </p>
          
-          <a href='/catalog' className='btn btn-warning mb-5 w-30'>Open Shop</a>
+          <a href='/catalog' className='btn btn-warning mb-5 w-30 secondFont'>Open Shop <FontAwesomeIcon icon={faStore} /></a>
         </div>
     </Jumbotron>
 
@@ -96,11 +101,11 @@ export default function Home() {
 
           <div className='row mt-5'>
             <div className='col-md-4 mb-5'>
-            <Card style={{ width: '100%' }}>
+            <Card style={{ width: '100%' }} className='shadow'>
               <Card.Img variant="top" src="https://www.kinexmedia.com/wp-content/uploads/2017/04/Search-bar.gif" style={{ height: '300px' }}/>
               <Card.Body>
-                <Card.Title>Search</Card.Title>
-                <Card.Text>
+                <Card.Title className='firstFont'>Search</Card.Title>
+                <Card.Text className='secondFont'>
                   Look for your desired products. Everything you need are all present at Nexstore.
                 </Card.Text>
               </Card.Body>
@@ -108,11 +113,11 @@ export default function Home() {
             </div>
 
             <div className='col-md-4 mb-5'>
-            <Card style={{ width: '100%' }}>
+            <Card style={{ width: '100%' }} className='shadow'>
               <Card.Img variant="top" src="https://media.giphy.com/media/jtECu4KjK3cqiAUMyR/giphy.gif" style={{ height: '300px' }} />
               <Card.Body>
-                <Card.Title>Add to cart</Card.Title>
-                <Card.Text>
+                <Card.Title className='firstFont'>Add to cart</Card.Title>
+                <Card.Text className='secondFont'>
                   After finding your product, click add to cart then view your cart in the cart page.
                 </Card.Text>
               </Card.Body>
@@ -121,11 +126,11 @@ export default function Home() {
 
 
             <div className='col-md-4 mb-5'>
-            <Card style={{ width: '100%' }}>
+            <Card style={{ width: '100%' }} className='shadow'>
               <Card.Img variant="top" src="https://th.bing.com/th/id/Re04209f877cd25fe2fb933f6b06b2b3d?rik=MDP4h%2fbuGRy6oQ&riu=http%3a%2f%2fgreatist.com%2fsites%2fdefault%2ffiles%2fstyles%2farticle_main%2fpublic%2fEatMe_Save_on_Groceries_Illustration_Cart_sm_Compressed.gif%3fitok%3dKiFWZ2k9&ehk=cWidzEptZyQ6JLFHTJ8CI2b5rkx7DteIHVxyzF0zlVc%3d&risl=&pid=ImgRaw" style={{ height: '300px' }}/>
               <Card.Body>
-                <Card.Title>Checkout</Card.Title>
-                <Card.Text>
+                <Card.Title className='firstFont'>Checkout</Card.Title>
+                <Card.Text className='secondFont'>
                   Checkout your product from the cart and wait for it to be delivered on your doorstep.
                 </Card.Text>
               </Card.Body>
@@ -135,7 +140,7 @@ export default function Home() {
         
         <div className='col-mb-5 col-sm-12 col-lg-5 mt-5'>
           <h2 className='text-center firstFont my-5 firstFont'>Best Selling Products</h2>
-          <Carousel>
+          <Carousel className='shadow'>
             {featured}
           </Carousel>
         </div>

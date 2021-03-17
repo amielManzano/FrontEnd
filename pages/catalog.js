@@ -3,6 +3,10 @@ import styles from '../styles/Home.module.css'
 import React, {useState, useEffect} from 'react'
 import { Form, Card, Button, Modal } from 'react-bootstrap'
 import { useRouter } from 'next/router'
+import swal from 'sweetalert'
+
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faEye, faCartPlus } from '@fortawesome/free-solid-svg-icons'
 
 export default function Home() {
     const [categoryName, setCategoryName] = useState("")
@@ -18,7 +22,7 @@ export default function Home() {
     useEffect(() => {
         
         let urlAll = 'https://magic-aliexpress1.p.rapidapi.com/api/v2/categories'
-        let keyAll = '5ca54c03b3msh8baf688928daeb6p1ca073jsn2c184cd3f98c'
+        let keyAll = 'a40fcc7907msh052dd5f49f21d8bp136989jsn53d4fbdd9901'
         let hostAll = 'magic-aliexpress1.p.rapidapi.com'
         fetch(urlAll, {
             "method": "GET",
@@ -30,14 +34,17 @@ export default function Home() {
             .then(response => response.json())
             .then(data => {
                 console.log(data);
-                let allCategories = data.map(index => {
-                   if(index.alie_category_id){
-                        return(
-                            <option key={index.api_category_id}>{index.category_name}</option>
-                        )
-                    }
-                })
-               setCategoryName(allCategories)
+                if(data){
+                    let allCategories = data.map(index => {
+                        if(index.alie_category_id){
+                             return(
+                                 <option key={index.api_category_id}>{index.category_name}</option>
+                             )
+                         }
+                     })
+                    setCategoryName(allCategories)
+                }
+               
             })
     },[])
 
@@ -46,7 +53,7 @@ export default function Home() {
         
         console.log(selectedCategory)
         let urlAll = 'https://magic-aliexpress1.p.rapidapi.com/api/v2/categories'
-        let keyAll = '5ca54c03b3msh8baf688928daeb6p1ca073jsn2c184cd3f98c'
+        let keyAll = 'a40fcc7907msh052dd5f49f21d8bp136989jsn53d4fbdd9901'
         let hostAll = 'magic-aliexpress1.p.rapidapi.com'
         fetch(urlAll, {
             "method": "GET",
@@ -61,7 +68,7 @@ export default function Home() {
 
                     if(i.category_name == selectedCategory) {
                             let urlAll = `https://magic-aliexpress1.p.rapidapi.com/api/category/${i.alie_category_id}/products?shipFromCountry=&shipToCountry=&sort=&maxSalePrice=&minSalePrice=&keywords=`
-                            let keyAll = '5ca54c03b3msh8baf688928daeb6p1ca073jsn2c184cd3f98c'
+                            let keyAll = 'a40fcc7907msh052dd5f49f21d8bp136989jsn53d4fbdd9901'
                             let hostAll = 'magic-aliexpress1.p.rapidapi.com'
                             fetch(urlAll, {
                                 "method": "GET",
@@ -101,7 +108,7 @@ export default function Home() {
                                             e.preventDefault()
                                             console.log(i.product_id)
                                             
-                                            let urlSpecific = `http://localhost:4000/add-to-cart`
+                                            let urlSpecific = `https://mighty-garden-47499.herokuapp.com/add-to-cart`
                                             fetch(urlSpecific, {
                                                 method: "POST",
                                                 headers: {
@@ -118,6 +125,12 @@ export default function Home() {
                                                 .then(response => response.json())
                                                 .then(data => { 
                                                     console.log(data)
+                                                    swal({
+                                                        title: "Success!",
+                                                        text: `You added a product to cart`,
+                                                        icon: "success",
+                                                        button: "continue",
+                                                    });
                                                 })
                                         }
 
@@ -134,17 +147,17 @@ export default function Home() {
                                             <Card.Footer>
                                                 <>
                                                 <Form onSubmit = { e => viewDetails(e)} className="">
-                                                    <Button variant="warning" type="submit" className='w-100'>Details</Button>
+                                                    <Button variant="warning" type="submit" className='w-100'>View <FontAwesomeIcon icon={faEye} /></Button>
                                                 </Form>
                                                 {
                                                 (user != null) 
                                                 ? 
                                                 <Form onSubmit = { e => addToCart(e)} className="">
-                                                    <Button variant="secondary" type="submit" className='w-100'>Add to cart</Button>
+                                                    <Button variant="secondary" type="submit" className='w-100'>Add to cart <FontAwesomeIcon icon={faCartPlus}/></Button>
                                                 </Form>
                                                 :
                                                 <Form onSubmit = { e => addToCart(e)} className="">
-                                                    <Button variant="secondary" type="submit" className='w-100' disabled>Add to cart</Button>
+                                                    <Button variant="secondary" type="submit" className='w-100' disabled>Add to cart<FontAwesomeIcon icon={faCartPlus}/></Button>
                                                 </Form>
                                                 }
                                                 {/* <Form onSubmit = { e => addToCart(e)} className="">
@@ -176,7 +189,7 @@ export default function Home() {
         fetch(`https://magic-aliexpress1.p.rapidapi.com/api/products/search?name=${search}&minSalePrice=5&shipToCountry=FR&sort=NEWEST_DESC&page=1&maxSalePrice=20&shipFromCountry=CN&fastDelivery=true`, {
           "method": "GET",
           "headers": {
-            "x-rapidapi-key": "5ca54c03b3msh8baf688928daeb6p1ca073jsn2c184cd3f98c",
+            "x-rapidapi-key": "a40fcc7907msh052dd5f49f21d8bp136989jsn53d4fbdd9901",
             "x-rapidapi-host": "magic-aliexpress1.p.rapidapi.com"
           }
         })
@@ -202,7 +215,7 @@ export default function Home() {
               <Card.Footer>
                   <Form onSubmit = { e => viewSpecific(e)} className="">
                      
-                    <Button variant="warning" type="submit" className='w-100'>View</Button>
+                    <Button variant="warning" type="submit" className='w-100'>View <FontAwesomeIcon icon={faEye} /></Button>
                       
                   </Form>
               </Card.Footer>
