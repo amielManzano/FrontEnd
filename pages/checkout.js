@@ -149,8 +149,6 @@
 import {useState, useEffect, useRef} from 'react'
 
 
-
-
 const PaypalBtn = ()=>{
     const[totalPurchase, setTotalPurchase] = useState('')
     let totalValueFromCart=0
@@ -179,10 +177,11 @@ const PaypalBtn = ()=>{
         })
 
         useEffect(()=>{
-            paypal.Buttons({
+           paypal.Buttons({
                 createOrder: function(data, actions) {
                   // This function sets up the details of the transaction, including the amount and line item details.
                   return actions.order.create({
+                    description: 'Fish',
                     purchase_units: [{
                       amount: {
                         value: localStorage.getItem('totalToPay')
@@ -192,32 +191,34 @@ const PaypalBtn = ()=>{
                 },
                 onApprove: function(data, actions) {
                   // This function captures the funds from the transaction.
-                  return actions.order.capture().then(function(details) {
+                  return actions.order.capture().then(function(response) {
                     // This function shows a transaction success message to your buyer.
-                    alert('Transaction completed by ' + details.payer.name.given_name);
+                
+                    alert('Transaction completed');
                   });
                 }
+                
               }).render(refPaypalBtn.current);
         },[])
 
-        async function CashOnDelivery(e){
-            e.preventDefault()
+        // async function CashOnDelivery(e){
+        //     e.preventDefault()
         
-            let checkOutUrl = await fetch('http://localhost:4000/checkout-product',{
-                method: 'POST',
-                header:{
-                    'Content-Type':'Application/JSON'
-                },
-                body:JSON.stringify({
-                    prod
-                })
-            })
-        }
+        //     let checkOutUrl = await fetch('http://localhost:4000/checkout-product',{
+        //         method: 'POST',
+        //         header:{
+        //             'Content-Type':'Application/JSON'
+        //         },
+        //         body:JSON.stringify({
+        //             prod
+        //         })
+        //     })
+        // }
 
     return(
         <>
        <div ref={refPaypalBtn}></div>
-        <button type="submit" onClick={e=>CashOnDelivery(e)}>Cash On Delivery</button>
+        {/* <button type="submit" onClick={e=>CashOnDelivery(e)}>Cash On Delivery</button> */}
        </>
     )
 }

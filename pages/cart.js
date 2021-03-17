@@ -3,6 +3,7 @@ import Head from 'next/head'
 import styles from '../styles/Home.module.css'
 import {Card, Button} from 'react-bootstrap'
 import { Router, useRouter } from 'next/router'
+import Checkout from './checkout'
 
 
 export default function cart() {
@@ -64,7 +65,7 @@ export default function cart() {
                     })
                 })
                 console.log(await deleteProduct.json())
-                router.push('/cart')
+                window.location.replace('/cart')
     
            }
             return(
@@ -96,9 +97,11 @@ export default function cart() {
        
             {productName}
             <button type="submit" onClick={e=>checkoutBtn(e)}>Proceed to Checkout</button>
-          <ul>
+          {/* <ul>
               {checkoutList}
-          </ul>
+          </ul> */}
+
+          {/* <Checkout/> */}
     </>
   )
 }
