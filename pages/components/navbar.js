@@ -21,7 +21,7 @@ export default function navHome() {
             <>
                 <Nav.Link href="../catalog" className='secondFont'>Catalog</Nav.Link>
                 <Nav.Link href="../cart" className='secondFont'><FontAwesomeIcon icon={faCartPlus} /></Nav.Link>
-                <Nav.Link href="../profile" className='secondFont'>Profile</Nav.Link>
+                <Nav.Link href="../userProfile" className='secondFont'>Transactions</Nav.Link>
                 <Nav.Link href="../logout" className='secondFont'>Logout</Nav.Link>
                 
                 {/* <Nav.Link href ="../sample" className='secondFont'>Sample</Nav.Link>
