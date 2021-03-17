@@ -37,12 +37,12 @@
            let objectOnCart=cod.cart.map(items=> {
             async function purchasedFunction(e){
                 e.preventDefault()
-               
+               console.log(localStorage.getItem('userId'))
                 let ere=await fetch('https://mighty-garden-47499.herokuapp.com/checkout-product', {
                     method: 'POST',
                     headers: { 'Content-type': 'Application/JSON'},
                     body: JSON.stringify({
-                        userId: localStorage.getItem('userId'),
+                       userId: localStorage.getItem('userId'),
                        productId: items.productId,
                        product_title: items.product_title,
                        app_sale_price: items.app_sale_price,
@@ -82,7 +82,6 @@
                             </div>
                             <div className='col-2'>
                                 <Button type="submit" onClick={e=>{purchasedFunction(e)}} block variant='warning'>COD</Button>
-                                <Button variant="danger" className='w-100'>Paypal</Button>
                             </div>
                         </div>
                         </>
@@ -107,9 +106,10 @@
     
         return(
             <>
-                <h1 className='text-center firstFont my-5'>Checkout</h1>
+                <h1 className='text-center thirdFont my-5'>Checkout</h1>
                 <div className='container  mb-5'>
                 <div className='row'>{productsOnCart}</div>
+                <Button variant="danger" className='w-100 mt-5'>Pay Via Paypal</Button>
                 </div>
                     
                     {/* <button type="submit" onClick={e=>pushCart(e)}>PROCEED...</button> */}

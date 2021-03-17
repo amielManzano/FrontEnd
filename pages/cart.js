@@ -5,6 +5,9 @@ import {Card, Button, Container, Form} from 'react-bootstrap'
 import { Router, useRouter } from 'next/router'
 import swal from 'sweetalert'
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faEye, faTrashAlt } from '@fortawesome/free-solid-svg-icons'
+
 
 export default function cart() {
 
@@ -74,9 +77,9 @@ export default function cart() {
                             </div>
                             <div className='col-2'>
                                 <Form onSubmit = { e => viewSpecific(e)} className="">
-                                    <Button variant="warning" type="submit" className='w-100'>View</Button>
+                                    <Button variant="warning" type="submit" className='w-100'>View <FontAwesomeIcon icon={faEye}/></Button>
                                 </Form>
-                                <Button variant="danger" onClick ={e=>deleteFromCart()} className='w-100'>Delete</Button>
+                                <Button variant="danger" onClick ={e=>deleteFromCart()} className='w-100'>Delete <FontAwesomeIcon icon={faTrashAlt}/></Button>
                             </div>
                         </div>
                         </>
@@ -98,7 +101,7 @@ export default function cart() {
 
   return (
       <Container>
-            <h1 className='text-center firstFont my-5'>Cart</h1>
+            <h1 className='text-center thirdFont my-5'>Cart</h1>
             <div className='row  mb-5'>
             {productName}
             <button type="submit" onClick={e=>checkoutBtn(e)} className='my-5 btn btn-danger w-100'>Proceed to Checkout</button>

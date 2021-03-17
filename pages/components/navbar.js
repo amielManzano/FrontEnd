@@ -21,7 +21,9 @@ export default function navHome() {
             <>
                 <Nav.Link href="../catalog" className='secondFont'>Catalog</Nav.Link>
                 <Nav.Link href="../cart" className='secondFont'><FontAwesomeIcon icon={faCartPlus} /></Nav.Link>
+                <Nav.Link href="../profile" className='secondFont'>Profile</Nav.Link>
                 <Nav.Link href="../logout" className='secondFont'>Logout</Nav.Link>
+                
                 {/* <Nav.Link href ="../sample" className='secondFont'>Sample</Nav.Link>
                 <Nav.Link href ="../librengpage" className='secondFont'>Libre</Nav.Link> */}
             </>
@@ -46,7 +48,7 @@ export default function navHome() {
 
    
     <Navbar className='bgColor' expand="lg">
-    <Navbar.Brand href="../" className='firstFont'>NexStore</Navbar.Brand>
+    <Navbar.Brand href="../" className='thirdFont b' style={{'letter-spacing': '0px'}}><b>NexStore</b></Navbar.Brand>
     <Navbar.Toggle aria-controls="basic-navbar-nav" />
     <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="makeRight">

@@ -87,12 +87,12 @@ export default function Home() {
     <>
     <Jumbotron fluid className='bgJumbo text-center'>
         <div className='glass adjustJumbo'>
-          <h1 className='text-center mt-5 mb-0 headingFont pt-5 font-weight-bold'>NEXSTORE</h1>
+          <h1 className='text-center mt-5 mb-0 headingFont pt-5 font-weight-bold mb-2'>NEXSTORE</h1>
           <p className='text-center secondFont subHeading'>
             Online shopping app, for everyone, everywhere!
           </p>
          
-          <a href='/catalog' className='btn btn-warning mb-5 w-30 secondFont'>Open Shop <FontAwesomeIcon icon={faStore} /></a>
+          <a href='/catalog' className='btn btn-warning mb-4 mt-0 w-30 secondFont'>Open Shop <FontAwesomeIcon icon={faStore} /></a>
         </div>
     </Jumbotron>
 
@@ -104,7 +104,7 @@ export default function Home() {
             <Card style={{ width: '100%' }} className='shadow'>
               <Card.Img variant="top" src="https://www.kinexmedia.com/wp-content/uploads/2017/04/Search-bar.gif" style={{ height: '300px' }}/>
               <Card.Body>
-                <Card.Title className='firstFont'>Search</Card.Title>
+                <Card.Title className='thirdFont'>Search</Card.Title>
                 <Card.Text className='secondFont'>
                   Look for your desired products. Everything you need are all present at Nexstore.
                 </Card.Text>
@@ -116,7 +116,7 @@ export default function Home() {
             <Card style={{ width: '100%' }} className='shadow'>
               <Card.Img variant="top" src="https://media.giphy.com/media/jtECu4KjK3cqiAUMyR/giphy.gif" style={{ height: '300px' }} />
               <Card.Body>
-                <Card.Title className='firstFont'>Add to cart</Card.Title>
+                <Card.Title className='thirdFont'>Add to cart</Card.Title>
                 <Card.Text className='secondFont'>
                   After finding your product, click add to cart then view your cart in the cart page.
                 </Card.Text>
@@ -129,7 +129,7 @@ export default function Home() {
             <Card style={{ width: '100%' }} className='shadow'>
               <Card.Img variant="top" src="https://th.bing.com/th/id/Re04209f877cd25fe2fb933f6b06b2b3d?rik=MDP4h%2fbuGRy6oQ&riu=http%3a%2f%2fgreatist.com%2fsites%2fdefault%2ffiles%2fstyles%2farticle_main%2fpublic%2fEatMe_Save_on_Groceries_Illustration_Cart_sm_Compressed.gif%3fitok%3dKiFWZ2k9&ehk=cWidzEptZyQ6JLFHTJ8CI2b5rkx7DteIHVxyzF0zlVc%3d&risl=&pid=ImgRaw" style={{ height: '300px' }}/>
               <Card.Body>
-                <Card.Title className='firstFont'>Checkout</Card.Title>
+                <Card.Title className='thirdFont'>Checkout</Card.Title>
                 <Card.Text className='secondFont'>
                   Checkout your product from the cart and wait for it to be delivered on your doorstep.
                 </Card.Text>
@@ -139,14 +139,14 @@ export default function Home() {
           </div>
         
         <div className='col-mb-5 col-sm-12 col-lg-5 mt-5'>
-          <h2 className='text-center firstFont my-5 firstFont'>Best Selling Products</h2>
-          <Carousel className='shadow'>
+          <h2 className='text-center firstFont my-5 thirdFont'>Best Selling</h2>
+          <Carousel className='shadow '>
             {featured}
           </Carousel>
         </div>
 
         <div className='col-mb-7 col-lg-7 mt-5'>
-          <h2 className='my-5 text-center firstFont'>What is NEXSTORE?</h2>
+          <h2 className='my-5 text-center thirdFont'>What is NEXSTORE?</h2>
           <p className='secondFont p-3'>Nexstore is an e-commerce web application created by the engineers at seed tech lab, Nexseed. This e-commerce application was made in preparation for the engineer's training before starting to develop using Shopify.</p>
           <hr></hr>
           <p className='secondFont p-3'>This project was made by integrating a third party api from RapidApi wherein it will generate all the products present in the store of Ali express. Only products in the Ali express are present in the catalog of this website.</p>

@@ -20,7 +20,7 @@ export default function Home() {
     const router = useRouter()
 
     useEffect(() => {
-        
+        setTimeout(function(){ 
         let urlAll = 'https://magic-aliexpress1.p.rapidapi.com/api/v2/categories'
         let keyAll = 'a40fcc7907msh052dd5f49f21d8bp136989jsn53d4fbdd9901'
         let hostAll = 'magic-aliexpress1.p.rapidapi.com'
@@ -46,6 +46,9 @@ export default function Home() {
                 }
                
             })
+    
+        }, 2000);
+        
     },[])
 
     useEffect(() => {
@@ -136,7 +139,7 @@ export default function Home() {
 
                                         return(
                                             <div className='col-md-4'>
-                                            <Card style={{ width: '100%' }} className='my-3' key={i.product_title}>
+                                            <Card style={{ width: '100%' }} className='my-3 shadow' key={i.product_title}>
                                             <Card.Img variant="top" src={i.product_main_image_url} />
                                             <Card.Body>
                                                 <Card.Title>{i.product_title}</Card.Title>
@@ -204,7 +207,7 @@ export default function Home() {
             }
             return(
             <div className='col-md-4'>
-            <Card style={{ width: '100%' }} className='my-3' key={i.product_title}>
+            <Card style={{ width: '100%' }} className='my-3 shadow' key={i.product_title}>
               <Card.Img variant="top" src={i.product_main_image_url} />
               <Card.Body>
                   <Card.Title>{i.product_title}</Card.Title>
@@ -231,7 +234,7 @@ export default function Home() {
     <>
         <div className='container'>
             <div className='minHeightAdjust'>
-                <h1 className='text-center mt-5 firstFont'>Catalog</h1>
+                <h1 className='text-center mt-5 thirdFont'>Catalog</h1>
                 <Form.Group controlId="categoryName">
                     <Form.Label className='colorWhite'>Category name:</Form.Label>
                     <Form.Control as="select"  value={selectedCategory} 
@@ -246,7 +249,7 @@ export default function Home() {
                 </div>
             </div>
             <div className='minHeightAdjust'>
-                <h2 className='text-center firstFont my-5'>Looking for?</h2>
+                <h2 className='text-center thirdFont my-5'>Looking for?</h2>
                 <Form onSubmit = { e => searchThis(e)} className='mt-5'>
                     <Form.Group controlId="search">
                         <Form.Label className='colorWhite'>Search a product</Form.Label>

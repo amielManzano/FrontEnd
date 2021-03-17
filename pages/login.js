@@ -63,7 +63,7 @@ const LoginForm = () => {
        localStorage.setItem('userId', qwer._id)
        localStorage.setItem('isAdmin', qwer.isAdmin)
 
-	   setUser(googleUser._id)
+	//    setUser(googleUser._id)
 		// windows.replace.location('/catalog')
 		
 	
@@ -94,7 +94,7 @@ const LoginForm = () => {
 		  let googleUser = await googleLoginUrl.json()
 
 		  localStorage.setItem('userId',googleUser._id)
-		  setUser(googleUser._id)
+		//   setUser(googleUser._id)
 		  localStorage.setItem('isAdmin',googleUser.isAdmin)
 
 		 console.log(user)
@@ -116,8 +116,8 @@ const LoginForm = () => {
 				<title>Authentication</title>
 			</Head>
 			<Container>
-				<div className='adjustLocation glass p-4 shadow-lg'>
-			    <h3 className='text-center firstFont'>Login</h3>
+				<div className='adjustLocation glass p-5 shadow-lg'>
+			    <h2 className='text-center thirdFont mt-3'>Login</h2>
 				<Form onSubmit={e => authenticate(e)}>
 
 					<Form.Group controlId="email">

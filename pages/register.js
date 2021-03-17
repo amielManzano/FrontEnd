@@ -41,8 +41,9 @@ export default function Home() {
   return (
     <>
     <Container>
-    <div className='adjustLocation2 glass shadow-lg p-4'>
-    <h3 className='text-center firstFont mb-4'>Register</h3>
+    <Container>
+    <div className='adjustLocation2 glass shadow-lg p-5'>
+    <h2 className='text-center thirdFont mb-4 mt-4'>Register</h2>
     <Form onSubmit={e=>registerUser(e)}>
     <div className="row">
         <div className="col">
@@ -88,11 +89,12 @@ export default function Home() {
     </div>
 
 
-    <Button variant="danger" type="submit" block>
+    <Button variant="danger" type="submit" block className='mb-5'>
         Submit
     </Button>
 </Form>
 </div>
+</Container>
 </Container>
 </>
   )
