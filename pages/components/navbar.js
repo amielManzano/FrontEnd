@@ -49,7 +49,7 @@ export default function navHome() {
 
    
     <Navbar className='bgColor' expand="lg">
-    <Navbar.Brand href="../" className='thirdFont b' style={{'letter-spacing': '0px'}}><b>NexStore</b></Navbar.Brand>
+    <Navbar.Brand href="../" className='thirdFont b' style={{'letterSpacing': '0px'}}><b>NexStore</b></Navbar.Brand>
     <Navbar.Toggle aria-controls="basic-navbar-nav" />
     <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="makeRight">

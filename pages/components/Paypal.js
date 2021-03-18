@@ -51,14 +51,27 @@ const PaypalBtn = ()=>{
                     // This function shows a transaction success message to your buyer.
                 
                     // alert('Transaction completed');
-                    swal({
-                        title: "Success!",
-                        text: `Transaction complete`,
-                        icon: "success",
-                        button: "continue",
-                    });
-                    router.push('/checkout')
-                  });
+
+                    fetch('https://mighty-garden-47499.herokuapp.com/paypal', {
+                      method: 'POST',
+                      headers: { 'Content-type': 'Application/JSON'},
+                      body: JSON.stringify({
+                          userId: localStorage.getItem('userId')
+                      })
+                    })
+                      .then(response => response.json())
+                      .then(data => {
+                        swal({
+                          title: "Success!",
+                          text: `Transaction complete`,
+                          icon: "success",
+                          button: "continue",
+                        });
+                        window.location.replace('/checkout')
+                      })
+                    })
+                    
+                  
                 }
                 
               }).render(refPaypalBtn.current);
