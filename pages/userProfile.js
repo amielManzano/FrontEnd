@@ -9,6 +9,12 @@ export default function userProfile(){
 	const [order, setOrder]=useState("")
 	const [change, setChange] = useState(true)
 
+	const [all, setAll]=useState([])
+	const [table, setTable]=useState("")
+	let buyerArray=[]
+
+
+	
 	useEffect(async function(){
 		
 		let userDetailUrl= await fetch('https://mighty-garden-47499.herokuapp.com/user-details', {
@@ -77,30 +83,43 @@ export default function userProfile(){
 	}, [change])
 	
 	
-	useEffect(async function(){
-		let getAllOrder=await fetch('https://mighty-garden-47499.herokuapp.com/get-all-orders')
-		let allOrders=await getAllOrder.json()
 		
-		let ordersBoughtByBuyers=allOrders.map(items=>{
-			// console.log(items)
+	useEffect(async()=> {
+		const allUsers=await fetch(`https://mighty-garden-47499.herokuapp.com/all-users`)
+		let data=await allUsers.json()
+		data.forEach(i=> {
+			i.purchasedProduct.map(item=> {
+				buyerArray.push({
+					customer: `${i.firstName} ${i.lastName}`,
+					address: i.address,
+					status: item.status,
+					product_title: item.product_title,
+					price: item.app_sale_price,
+					product_main_image_url: item.product_main_image_url,
+				})
+			})
+		})
+		setAll(buyerArray)
+		
+	},[])
+	console.log(all)
+	
+	
+	useEffect(()=>{
+		let tableBody=all.map(i=> {
 			return(
-				<tr key={items.productId}>
-					<td className='text-center'>{items.product_title}</td>
-					<td className='text-center'>{items.app_sale_price}</td>
-					<td className='text-center'> <Image src={items.product_main_image_url} thumbnail style={{height: '40px'}, {width: '40px'}}/></td>
-					{/* {
-						items.status == 'PENDING' ? */}
-
-						{/* <button type="submit" onClick={e=>{receivedProduct(e)}}>Received</button> */}
-
-					{/* } */}
-					<td className='text-center'>{items.status}</td>
+				<tr>
+					<td className='text-center'>{i.customer}</td>
+					<td className='text-center'>{i.address}</td>
+					<td className='text-center'><Image src={i.product_main_image_url} thumbnail style={{height: '40px'}, {width: '40px'}}/></td>
+					<td className='text-center'>{i.price}</td>
+					<td className='text-center'>{i.status}</td>
 				</tr>
 			)
 		})
 		
-		setOrder(ordersBoughtByBuyers)
-	}, [])
+		setTable(tableBody)
+	},[all])
 	
 	return(
 		<>
@@ -111,14 +130,15 @@ export default function userProfile(){
 					<Table striped bordered hover>
 					<thead>
 						<tr>
-							<th className='text-center'>PRODUCT</th>
-							<th className='text-center'>PRICE (USD)</th>
+							<th className='text-center'>CUSTOMER</th>
+							<th className='text-center'>ADDRESS</th>
 							<th className='text-center'>IMAGE</th>
+							<th className='text-center'>PRICE (USD)</th>
 							<th className='text-center'>STATUS</th>
 						</tr>
 					</thead>
 					<tbody>
-						{order}
+						{table}
 					</tbody>
 					</Table>
 				: 

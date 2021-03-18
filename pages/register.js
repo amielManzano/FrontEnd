@@ -80,7 +80,7 @@ export default function Home() {
     </Form.Group>
 
     <Form.Group controlId="">
-        <Form.Label>Address:</Form.Label>
+        <Form.Label>Address: (house no, brgy, city) </Form.Label>
         <Form.Control type="text" placeholder="Present Address" value = {address} onChange={e=>setAddress(e.target.value)}/>
     </Form.Group>
 
