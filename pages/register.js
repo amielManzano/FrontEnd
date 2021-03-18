@@ -2,6 +2,9 @@ import React,{useState} from 'react'
 import Head from 'next/head'
 import styles from '../styles/Home.module.css'
 import { Form, Button, Container, Row, Col } from 'react-bootstrap';
+import swal from 'sweetalert'
+import { Router } from 'next/router'
+import { useRouter } from 'next/router'
 
 export default function Home() {
     let [firstName, setFirstName]=useState("")
@@ -10,6 +13,8 @@ export default function Home() {
     let [verifyPassword, setVerifyPassword]=useState("")
     let [email, setEmail]=useState("")
     let [address,setAddress]=useState("")
+
+    const router = useRouter()
     
     async function registerUser(e){
         e.preventDefault()
@@ -32,6 +37,13 @@ export default function Home() {
 		.then(result=>result.json())
 		.then(data => {
 			console.log(data)
+            swal({
+                title: "Success!",
+                text: `You are now registered to NEXSTORE`,
+                icon: "success",
+                button: "continue",
+            });
+            router.push('/login')
 
 		})
 

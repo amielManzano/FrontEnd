@@ -88,11 +88,11 @@ export default function Home() {
     <Jumbotron fluid className='bgJumbo text-center'>
         <div className='glass adjustJumbo'>
           <h1 className='text-center mt-5 mb-0 headingFont pt-5 font-weight-bold mb-2'>NEXSTORE</h1>
-          <p className='text-center secondFont subHeading'>
+          <span className='text-center secondFont subHeading'>
             Online shopping app, for everyone, everywhere!
-          </p>
-         
-          <a href='/catalog' className='btn btn-warning mb-4 mt-0 w-30 secondFont'>Open Shop <FontAwesomeIcon icon={faStore} /></a>
+          </span>
+          <br></br>
+          <a href='/catalog' className='btn btn-warning mb-4 mt-2 w-30 secondFont'>Open Shop <FontAwesomeIcon icon={faStore} /></a>
         </div>
     </Jumbotron>
 
@@ -139,7 +139,7 @@ export default function Home() {
           </div>
         
         <div className='col-mb-5 col-sm-12 col-lg-5 mt-5'>
-          <h2 className='text-center firstFont my-5 thirdFont'>Best Selling</h2>
+          <h2 className='text-center firstFont my-5 thirdFont'>Best Seller</h2>
           <Carousel className='shadow '>
             {featured}
           </Carousel>

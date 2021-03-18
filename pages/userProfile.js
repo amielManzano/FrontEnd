@@ -52,11 +52,11 @@ export default function userProfile(){
 
 			return(
 				<tr key={items.productId}>
-					<td>{items.product_title}</td>
-					<td>(US) $ {items.app_sale_price}</td>
-					<td> <Image src={items.product_main_image_url} thumbnail style={{height: '40px'}, {width: '40px'}}/></td>
+					<td className='text-center'>{items.product_title}</td>
+					<td className='text-center'>{items.app_sale_price}</td>
+					<td className='text-center'> <Image src={items.product_main_image_url} thumbnail style={{height: '40px'}, {width: '40px'}}/></td>
 					
-					<td>
+					<td className='text-center'>
 						{
 							items.status === 'PENDING' 
 							?
@@ -82,19 +82,19 @@ export default function userProfile(){
 		let allOrders=await getAllOrder.json()
 		
 		let ordersBoughtByBuyers=allOrders.map(items=>{
-			
+			// console.log(items)
 			return(
 				<tr key={items.productId}>
-					<td>{items.product_title}</td>
-					<td>(US) $ {items.app_sale_price}</td>
-					<td> <Image src={items.product_main_image_url} thumbnail style={{height: '40px'}, {width: '40px'}}/></td>
+					<td className='text-center'>{items.product_title}</td>
+					<td className='text-center'>{items.app_sale_price}</td>
+					<td className='text-center'> <Image src={items.product_main_image_url} thumbnail style={{height: '40px'}, {width: '40px'}}/></td>
 					{/* {
 						items.status == 'PENDING' ? */}
 
-						<button type="submit" onClick={e=>{receivedProduct(e)}}>Received</button>
+						{/* <button type="submit" onClick={e=>{receivedProduct(e)}}>Received</button> */}
 
 					{/* } */}
-					<td>{items.status}</td>
+					<td className='text-center'>{items.status}</td>
 				</tr>
 			)
 		})
@@ -111,10 +111,10 @@ export default function userProfile(){
 					<Table striped bordered hover>
 					<thead>
 						<tr>
-							<th>PRODUCT</th>
-							<th>PRICE</th>
-							<th>IMAGE</th>
-							<th>STATUS</th>
+							<th className='text-center'>PRODUCT</th>
+							<th className='text-center'>PRICE (USD)</th>
+							<th className='text-center'>IMAGE</th>
+							<th className='text-center'>STATUS</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -125,10 +125,10 @@ export default function userProfile(){
 					<Table striped bordered hover>
 						<thead>
 							<tr>
-								<th>PRODUCT</th>
-								<th>PRICE</th>
-								<th>IMAGE</th>
-								<th>STATUS</th>
+								<th className='text-center'>PRODUCT</th>
+								<th className='text-center'>PRICE (USD)</th>
+								<th className='text-center'>IMAGE</th>
+								<th className='text-center'>STATUS</th>
 							</tr>
 						</thead>
 						<tbody>
