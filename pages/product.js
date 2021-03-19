@@ -17,7 +17,7 @@ export default function Home() {
 
     useEffect(() => {
         setUser(localStorage.getItem('userId'))
-        let keyAll = 'a40fcc7907msh052dd5f49f21d8bp136989jsn53d4fbdd9901'
+        let keyAll = '9f094294ccmsh9ecb032fcfc6d57p10148fjsn1c0c75c47fce'
         let hostAll = 'magic-aliexpress1.p.rapidapi.com'
         let urlSpecific = `https://magic-aliexpress1.p.rapidapi.com/api/product/${localStorage.getItem('viewThis')}`
         fetch(urlSpecific, {
@@ -90,7 +90,7 @@ export default function Home() {
     //feedback
     function feedback(e){
         e.preventDefault()
-        let keyAll = 'a40fcc7907msh052dd5f49f21d8bp136989jsn53d4fbdd9901'
+        let keyAll = '9f094294ccmsh9ecb032fcfc6d57p10148fjsn1c0c75c47fce'
         let hostAll = 'magic-aliexpress1.p.rapidapi.com'
         let urlFeedback = `https://magic-aliexpress1.p.rapidapi.com/api/product/${localStorage.getItem('viewThis')}/feedbacks?page=1`
             fetch(urlFeedback, {

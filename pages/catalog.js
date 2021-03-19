@@ -22,7 +22,7 @@ export default function Home() {
     useEffect(() => {
         setTimeout(function(){ 
         let urlAll = 'https://magic-aliexpress1.p.rapidapi.com/api/v2/categories'
-        let keyAll = 'a40fcc7907msh052dd5f49f21d8bp136989jsn53d4fbdd9901'
+        let keyAll = '9f094294ccmsh9ecb032fcfc6d57p10148fjsn1c0c75c47fce'
         let hostAll = 'magic-aliexpress1.p.rapidapi.com'
         fetch(urlAll, {
             "method": "GET",
@@ -56,7 +56,7 @@ export default function Home() {
         
         console.log(selectedCategory)
         let urlAll = 'https://magic-aliexpress1.p.rapidapi.com/api/v2/categories'
-        let keyAll = 'a40fcc7907msh052dd5f49f21d8bp136989jsn53d4fbdd9901'
+        let keyAll = '9f094294ccmsh9ecb032fcfc6d57p10148fjsn1c0c75c47fce'
         let hostAll = 'magic-aliexpress1.p.rapidapi.com'
         fetch(urlAll, {
             "method": "GET",
@@ -71,7 +71,7 @@ export default function Home() {
 
                     if(i.category_name == selectedCategory) {
                             let urlAll = `https://magic-aliexpress1.p.rapidapi.com/api/category/${i.alie_category_id}/products?shipFromCountry=&shipToCountry=&sort=&maxSalePrice=&minSalePrice=&keywords=`
-                            let keyAll = 'a40fcc7907msh052dd5f49f21d8bp136989jsn53d4fbdd9901'
+                            let keyAll = '9f094294ccmsh9ecb032fcfc6d57p10148fjsn1c0c75c47fce'
                             let hostAll = 'magic-aliexpress1.p.rapidapi.com'
                             fetch(urlAll, {
                                 "method": "GET",
@@ -192,7 +192,7 @@ export default function Home() {
         fetch(`https://magic-aliexpress1.p.rapidapi.com/api/products/search?name=${search}&minSalePrice=5&shipToCountry=FR&sort=NEWEST_DESC&page=1&maxSalePrice=20&shipFromCountry=CN&fastDelivery=true`, {
           "method": "GET",
           "headers": {
-            "x-rapidapi-key": "a40fcc7907msh052dd5f49f21d8bp136989jsn53d4fbdd9901",
+            "x-rapidapi-key": "9f094294ccmsh9ecb032fcfc6d57p10148fjsn1c0c75c47fce",
             "x-rapidapi-host": "magic-aliexpress1.p.rapidapi.com"
           }
         })

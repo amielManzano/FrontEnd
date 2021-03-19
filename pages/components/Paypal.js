@@ -39,7 +39,13 @@ const PaypalBtn = ()=>{
                 createOrder: function(data, actions) {
                   // This function sets up the details of the transaction, including the amount and line item details.
                     // console.log(`from state: ${allOrders  }`)
-                    fetch('https://mighty-garden-47499.herokuapp.com/user-details', {
+                   
+                    
+
+                    // let finalData = localStorage.getItem('allOrdersHere')
+                    // console.log(`finalData ${finalData}` )
+                    // if(finalData){
+                      fetch('https://mighty-garden-47499.herokuapp.com/user-details', {
                       method: 'POST',
                       headers: { 'CONTENT-TYPE': 'APPLICATION/JSON'},
                       body: JSON.stringify({
@@ -71,22 +77,18 @@ const PaypalBtn = ()=>{
                      
                         
                     })
-        
-
-                    let finalData = localStorage.getItem('allOrdersHere')
-                    console.log(`finalData ${finalData}` )
-                    if(finalData){
                       return actions.order.create({
                         purchase_units: [{
                           description: "All orders",
                           amount: {
                             value: localStorage.getItem('totalToPay')
-                          },
+                          }
                           // note_to_payer: 'Contact us for any questions on your order.'
 
                         }]
                       });
-                    }
+                    // }
+                    
                  
                 },
                 onApprove: function(data, actions) {
@@ -97,6 +99,7 @@ const PaypalBtn = ()=>{
                     // alert('Transaction completed');
                    
                     // push to purchased order
+                    
                   
                     
                     
@@ -116,7 +119,7 @@ const PaypalBtn = ()=>{
                           icon: "success",
                           button: "continue",
                         });
-                        //window.location.replace('/checkout')
+                        window.location.replace('/checkout')
                       })
                     })
                     

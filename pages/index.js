@@ -17,7 +17,7 @@ export default function Home() {
     setCheckUser(localStorage.getItem('userId'))
 
     let urlAll = 'https://magic-aliexpress1.p.rapidapi.com/api/bestSales/products?page=1&priceMax=20&priceMin=5&sort=EVALUATE_RATE_ASC&searchName=playstation'
-    let keyAll = 'a40fcc7907msh052dd5f49f21d8bp136989jsn53d4fbdd9901'
+    let keyAll = '9f094294ccmsh9ecb032fcfc6d57p10148fjsn1c0c75c47fce'
     let hostAll = 'magic-aliexpress1.p.rapidapi.com'
     fetch(urlAll, {
         "method": "GET",
